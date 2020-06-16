@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sales" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Albedo_SharedIncrementId::configuration</resource>
+            <group id="shared_increment_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shared Increment-ID</label>
+                <field id="enabled_for_entities" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Enabled for entities</label>
+                    <source_model>Albedo\SharedIncrementId\Model\EntityTypes</source_model>
+                    <comment><![CDATA[Use CMD to select more than one option.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
