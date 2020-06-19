@@ -1,0 +1,34 @@
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+
+    <entity name="demoGroup" type="storeGroup">
+        <!--data key="group_id">customStoreGroup.id</data-->
+        <data key="name" >DemoGroup</data>
+        <data key="code" >demo_group</data>
+        <data key="is_active">1</data>
+    </entity>
+
+<entity name="demoStore" type="store">
+    <!--data key="group_id">customStoreGroup.id</data-->
+    <data key="name" unique="suffix">store</data>
+    <data key="code" unique="suffix">store</data>
+    <data key="is_active">1</data>
+    <data key="store_id">null</data>
+    <data key="store_action">add</data>
+    <data key="store_type">store</data>
+    <requiredEntity type="storeGroup">demoGroup</requiredEntity>
+</entity>
+
+    <entity name="demoStoreSecond" type="store">
+        <!--data key="group_id">customStoreGroup.id</data-->
+        <data key="name" unique="suffix">store</data>
+        <data key="code" unique="suffix">store</data>
+        <data key="is_active">1</data>
+        <data key="store_id">null</data>
+        <data key="store_action">add</data>
+        <data key="store_type">store</data>
+        <requiredEntity type="storeGroup">demoGroup</requiredEntity>
+    </entity>
+</entities>

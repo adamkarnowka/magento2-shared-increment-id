@@ -10,33 +10,65 @@
        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
     <test name="SharedIncrementIdBasicTest">
         <annotations>
-            <features value="Newsletter"/>
-            <stories value="Storefront Secure URLs"/>
-            <title value="Verify Secure URLs For Storefront Newsletter Pages"/>
-            <description value="Verify that the Secure URL configuration applies to the Newsletter pages on the Storefront"/>
+            <features value="Shared IncrementId"/>
+            <stories value="SharedIncrementID"/>
+            <title value="Verify SharedIncrementID"/>
+            <description value="Verify that SharedIncrementID"/>
             <severity value="MAJOR"/>
-            <testCaseId value="MC-15584"/>
-            <group value="newsletter"/>
-            <group value="configuration"/>
-            <group value="secure_storefront_url"/>
         </annotations>
         <before>
-            <createData entity="Simple_US_Customer" stepKey="customer"/>
-            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
-                <argument name="Customer" value="$$customer$$"/>
+
+       <!--     <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>-->
+
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="SimpleProductHandle">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+
+
+
+            <!--
+            <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="createWebsite">
+                    <argument name="newWebsiteName" value="DemoWebsite"/>
+                    <argument name="websiteCode" value="demo_website"/>
             </actionGroup>
-            <executeJS function="return window.location.host" stepKey="hostname"/>
-            <magentoCLI command="config:set web/secure/base_url https://{$hostname}/" stepKey="setSecureBaseURL"/>
-            <magentoCLI command="config:set web/secure/use_in_frontend 1" stepKey="useSecureURLsOnStorefront"/>
-            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+
+            <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="newGroup">
+                <argument name="website" value="DemoWebsite"/>
+                <argument name="storeGroupName" value="DemoGroup"/>
+                <argument name="storeGroupCode" value="demo_group"/>
+            </actionGroup>
+
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createNewStore">
+                <argument name="StoreGroup" value="demoGroup"/>
+                <argument name="customStore" value="demoStore"/>
+            </actionGroup>
+
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createNewStoreSecond">
+                <argument name="StoreGroup" value="demoGroup"/>
+                <argument name="customStore" value="demoStoreSecond"/>
+            </actionGroup>-->
+
+           <!--<amOnPage url="{{SalesConfigPage.url}}" stepKey="navigateToConfigurationPage" />
+            <seeElement selector="select#sales_shared_increment_id_enabled_for_entities" stepKey="seeConfigurationSelect"/>
+            <click selector="/html/body/div[2]/main/div[2]/div[1]/div/form/div[2]/div/div[3]/fieldset/table/tbody/tr/td[2]/select/option[1]" stepKey="clickButton1"/>
+            <click selector="button#save" stepKey="saveConfig" />
+            <wait time="10" stepKey="waitTenSeconds"/>
+            <seeElement selector="div.success" stepKey="seeSuccessMessage" />-->
+
         </before>
-        <after>
-            <magentoCLI command="config:set web/secure/use_in_frontend 0" stepKey="dontUseSecureURLsOnStorefront"/>
-            <magentoCLI command="cache:flush" stepKey="flushCache"/>
-            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
-        </after>
-        <executeJS function="return window.location.host" stepKey="hostname"/>
-        <amOnUrl url="http://{$hostname}/newsletter/manage" stepKey="goToUnsecureNewsletterManageURL"/>
-        <seeCurrentUrlEquals url="https://{$hostname}/newsletter/manage" stepKey="seeSecureNewsletterManageURL"/>
+        <amOnPage url="/de/catalog/product/view/id/$$SimpleProductHandle.id$$" stepKey="amOnSimpleProductPage"/>
+       <after>
+        <!--       <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteStoreviewFirst">
+                   <argument name="websiteName" value="demoWebsite" />
+               </actionGroup>
+
+               <actionGroup ref="logout" stepKey="logout"/>
+               -->
+           </after>
+
+           <!--<executeJS function="return window.location.host" stepKey="hostname"/>
+           <amOnUrl url="http://{$hostname}/newsletter/manage" stepKey="goToUnsecureNewsletterManageURL"/>
+           <seeCurrentUrlEquals url="https://{$hostname}/newsletter/manage" stepKey="seeSecureNewsletterManageURL"/>-->
     </test>
 </tests>
